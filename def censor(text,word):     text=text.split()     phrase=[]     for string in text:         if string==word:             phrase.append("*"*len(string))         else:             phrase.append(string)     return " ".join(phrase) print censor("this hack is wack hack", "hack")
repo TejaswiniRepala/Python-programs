@@ -1,0 +1,11 @@
+def censor(text,word):
+    text=text.split()
+    phrase=[]
+    for string in text:
+        if string==word:
+            phrase.append("*"*len(string))
+        else:
+            phrase.append(string)
+    return " ".join(phrase)
+print censor("this hack is wack hack", "hack")  
+           
