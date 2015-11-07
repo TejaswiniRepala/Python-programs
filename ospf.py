@@ -11,20 +11,20 @@ Neighbor ID     Pri State            Up Time  Address         Interface
 '''
 
 
-ne_id = re.findall(r'(N[a-z]+\s[A-Z]{2})+\s+P[a-z]+\s+S[a-z]+\s+U[a-z]{1}\s+T[a-z]+\s+A[a-z]+\s+I[a-z]+',output)
-priority=re.findall(r'N[a-z]+\s[A-Z]+\s+(P[a-z]+)\s+S[a-z]+\s+U[a-z]{1}\s+T[a-z]+\s+A[a-z]+\s+I[a-z]+',output)
-state=re.findall(r'N[a-z]+\s[A-Z]+\s+P[a-z]+\s+(S[a-z]+)\s+U[a-z]{1}\s+T[a-z]+\s+A[a-z]+\s+I[a-z]+',output)
-ut=re.findall(r'N[a-z]+\s[A-Z]+\s+P[a-z]+\s+S[a-z]+\s+(U[a-z]{1}\s+T[a-z]+)\s+A[a-z]+\s+I[a-z]+',output)
-addr=re.findall(r'N[a-z]+\s[A-Z]+\s+P[a-z]+\s+S[a-z]+\s+U[a-z]{1}\s+T[a-z]+\s+(A[a-z]+)\s+I[a-z]+',output)
-intr=re.findall(r'N[a-z]+\s[A-Z]+\s+P[a-z]+\s+S[a-z]+\s+U[a-z]{1}\s+T[a-z]+\s+A[a-z]+\s+(I[a-z]+)',output)
+ne_id = re.findall(r'(N\w+\s\w{2})+\s+P\w+\s+S\w+\s+U\w{1}\s+T\w+\s+A\w+\s+I\w+',output)
+priority=re.findall(r'N\w+\s\w+\s+(P\w+)\s+S\w+\s+U\w{1}\s+T\w+\s+A\w+\s+I\w+',output)
+state=re.findall(r'N\w+\s\w+\s+P\w+\s+(S\w+)\s+U\w{1}\s+T\w+\s+A\w+\s+I\w+',output)
+ut=re.findall(r'N\w+\s\w+\s+P\w+\s+S\w+\s+(U\w{1}\s+T\w+)\s+A\w+\s+I\w+',output)
+addr=re.findall(r'N\w+\s\w+\s+P\w+\s+S\w+\s+U\w{1}\s+T\w+\s+(A\w+)\s+I\w+',output)
+intr=re.findall(r'N\w+\s\w+\s+P\w+\s+S\w+\s+U\w{1}\s+T\w+\s+A\w+\s+(I\w+)',output)
 
 
-ip=re.findall(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s+\d{1}\s+[A-Z]+\/?[A-Z]+\s+[0-9a-z]+\s+\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+[A-Za-z].*',output)
-p= re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+(\d{1})\s+[A-Z]+\/?[A-Z]+\s+[0-9a-z]+\s+\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+[A-Za-z].*',output)
-s=re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\d{1}\s+([A-Z]+\/?[A-Z]+)\s+[0-9a-z]+\s+\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+[A-Za-z].*',output)
-t=re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\d{1}\s+[A-Z]+\/?[A-Z]+\s+([0-9a-z]+)\s+\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+[A-Za-z].*',output)
-a=re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\d{1}\s+[A-Z]+\/?[A-Z]+\s+[0-9a-z]+\s+(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s+[A-Za-z].*',output)
-i=re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\d{1}\s+[A-Z]+\/?[A-Z]+\s+[0-9a-z]+\s+\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+([A-Za-z].*)',output)
+ip=re.findall(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s+\d{1}\s+\w+\/?\w+\s+\w+\s+\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\w.*',output)
+p= re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+(\d{1})\s+\w+\/?\w+\s+\w+\s+\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\w.*',output)
+s=re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\d{1}\s+(\w+\/?\w+)\s+\w+\s+\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\w.*',output)
+t=re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\d{1}\s+\w+\/?\w+\s+(\w+)\s+\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\w.*',output)
+a=re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\d{1}\s+\w+\/?\w+\s+\w+\s+(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s+\w.*',output)
+i=re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\d{1}\s+\w+\/?\w+\s+\w+\s+\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+(\w.*)',output)
 
 
 keys   = [ne_id,priority,state,ut,addr,intr]
