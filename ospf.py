@@ -32,16 +32,32 @@ keys   = [ne_id,priority,state,ut,addr,intr]
 values = [ip,p,s,t,a,i]
 
 
+'''expected output values'''
+
+dict0={'Pri': ['1', '1', '1'],
+ 'State': ['FULL/DR', 'FULL/DR', 'FULL/DR'],
+ 'Up Time': ['1d14h', '1d14h', '1d14h'],
+ 'Address': ['101.11.12.2', '101.11.13.2', '50.1.1.102'],
+ 'Interface': ['Eth3/4/3', 'Eth3/4/4', 'Po11'], 'Neighbor ID': ['12.1.1.2', '13.1.1.1', '99.99.99.99']}
+
+
+''' parsing the output values into dictionary'''
+
 klist=[]
 for i in keys:
     klist.append(" ".join(i))
+#print klist
 
 dict1={}
 for j in range(len(klist)):
     dict1[klist[j]]=values[j]
-print dict1        
-       
-                    
+#print dict1
+
+for x in dict1:
+    for k in dict0:
+        if dict1[x]==dict0[k]:
+            print "Pass",x,dict1[x]
+        
     
 
 
