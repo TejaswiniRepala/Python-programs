@@ -1,68 +1,76 @@
-# Python-programs
 import re
 
-output = '''
-OSPF Process ID 100 VRF default
-Total number of neighbors: 3
-Neighbor ID     Pri State            Up Time  Address         Interface
-12.1.1.1          1 FULL/DR          1d14h    101.11.12.2     Eth3/4/3
-13.1.1.1          1 FULL/DR          1d14h    101.11.13.2     Eth3/4/4
-99.99.99.99       1 FULL/DR          1d14h    50.1.1.102      Po11
-'''
+def parsing_ospf_ne(output):
+    p = re.compile("(\d{2}\.\d{1,2}\.\d{1,2}\.\d{1,2})\s+(\d{1})\s(\w+\/\w+)\s+(\d{1}\w\d{2}\w)\s+(\d+\.\d+\.\d+\.\d+)\s+(\w+\d{1}\/\d{1}\/\d{1}|\w+\d)")
+    matches = [m.groups() for m in p.finditer(output)]
+    #print "Groups of Matches list:",matches,"\n"
+
+    neighbor_id = [a for a,b,c,d,e,f in matches]
+    #print "Neighbor ID list:",neighbor_id,"\n"
+
+    pri = [b for a,b,c,d,e,f in matches]
+    #print "Pri_list:", pri,"\n"
+
+    state = [c for a,b,c,d,e,f in matches]
+    #print "State_list:",state,"\n"
+
+    up_time = [d for a,b,c,d,e,f in matches]
+    #print "Up Time:",up_time,"\n"
+
+    ip_address = [e for a,b,c,d,e,f in matches]
+    #print "Address_list:",ip_address,"\n"
+
+    interface = [f for a,b,c,d,e,f in matches]
+    #print "Interface_list:",interface,"\n"
+    return(neighbor_id,pri,state,up_time,ip_address,interface)
+
+#print parsing_ospf_ne(output=
+    '''Neighbor ID     Pri State            Up Time  Address         Interface
+        12.1.1.1          1 FULL/DR          1d14h    101.11.12.2     Eth3/4/3
+        13.1.1.1          1 FULL/DR          1d14h    101.11.13.2     Eth3/4/4
+        99.99.99.99       1 FULL/DR          1d14h    50.1.1.102      Po11'''
+#print parsing_ospf_ne(output=
+    '''Neighbor ID     Pri State            Up Time  Address         Interface
+        12.1.1.2          1 FULL/DR          1d14h    101.11.12.2     Eth3/4/3
+        13.1.1.3          1 FULL/DR          1d14h    101.11.13.2     Eth3/4/4
+        99.99.99.99       1 FULL/DR          1d14h    50.1.1.102      Po11'''
+    
+def verification_ospf_ne():
+    Expected_output=''' 
+        Neighbor ID     Pri State            Up Time  Address         Interface
+        12.1.1.1          1 FULL/DR          1d14h    101.11.12.2     Eth3/4/3
+        13.1.1.1          1 FULL/DR          1d14h    101.11.13.2     Eth3/4/4
+        99.99.99.99       1 FULL/DR          1d14h    50.1.1.102      Po11'''
+    neighbor_id,pri,state,up_time,ip_address,interface = (parsing_ospf_ne(Expected_output))
+    #print(neighbor_idx,prix,statex,up_timex,ip_addressx,interfacex )
+    
+    current_output='''
+       Neighbor ID     Pri State            Up Time  Address         Interface
+        12.1.1.2          1 FULL/DR          1d14h    101.11.12.2     Eth3/4/3
+        13.1.1.3          1 FULL/DR          1d14h    101.11.13.2     Eth3/4/4
+        99.99.99.99       1 FULL/DR          1d14h    50.1.1.102      Po11'''
+    neighbor_id1,pri1,state1,up_time1,ip_address1,interface1 = (parsing_ospf_ne(current_output))
+    #print(neighbor_idy,priy,statey,up_timey,ip_addressy,interfacey)
+       
+    i=0
+    while (i<3):
+        if neighbor_id[i]==neighbor_id1[i] and pri[i]==pri1[i] and state[i]==state1[i] and up_time[i]==up_time1[i] and ip_address[i]==ip_address1[i] and interface[i]==interface1[i]:
+            print "pass",neighbor_id[i],pri[i],state[i],up_time[i],ip_address[i],interface[i],neighbor_id1[i],pri1[i],state1[i],up_time1[i],ip_address1[i],interface1[i]
+        else:
+            print "Fail",neighbor_id[i],pri[i],state[i],up_time[i],ip_address[i],interface[i],neighbor_id1[i],pri1[i],state1[i],up_time1[i],ip_address1[i],interface1[i]
+        i+=1
 
 
-ne_id = re.findall(r'(N\w+\s\w{2})+\s+P\w+\s+S\w+\s+U\w{1}\s+T\w+\s+A\w+\s+I\w+',output)
-priority=re.findall(r'N\w+\s\w+\s+(P\w+)\s+S\w+\s+U\w{1}\s+T\w+\s+A\w+\s+I\w+',output)
-state=re.findall(r'N\w+\s\w+\s+P\w+\s+(S\w+)\s+U\w{1}\s+T\w+\s+A\w+\s+I\w+',output)
-ut=re.findall(r'N\w+\s\w+\s+P\w+\s+S\w+\s+(U\w{1}\s+T\w+)\s+A\w+\s+I\w+',output)
-addr=re.findall(r'N\w+\s\w+\s+P\w+\s+S\w+\s+U\w{1}\s+T\w+\s+(A\w+)\s+I\w+',output)
-intr=re.findall(r'N\w+\s\w+\s+P\w+\s+S\w+\s+U\w{1}\s+T\w+\s+A\w+\s+(I\w+)',output)
+           
+verification_ospf_ne()    
 
 
-ip=re.findall(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s+\d{1}\s+\w+\/?\w+\s+\w+\s+\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\w.*',output)
-p= re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+(\d{1})\s+\w+\/?\w+\s+\w+\s+\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\w.*',output)
-s=re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\d{1}\s+(\w+\/?\w+)\s+\w+\s+\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\w.*',output)
-t=re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\d{1}\s+\w+\/?\w+\s+(\w+)\s+\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\w.*',output)
-a=re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\d{1}\s+\w+\/?\w+\s+\w+\s+(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s+\w.*',output)
-i=re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+\d{1}\s+\w+\/?\w+\s+\w+\s+\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+(\w.*)',output)
-
-
-keys   = [ne_id,priority,state,ut,addr,intr]
-
-values = [ip,p,s,t,a,i]
-
-
-'''expected output values'''
-
-dict0={'Pri': ['1', '1', '1'],
- 'State': ['FULL/DR', 'FULL/DR', 'FULL/DR'],
- 'Up Time': ['1d14h', '1d14h', '1d14h'],
- 'Address': ['101.11.12.2', '101.11.13.2', '50.1.1.102'],
- 'Interface': ['Eth3/4/3', 'Eth3/4/4', 'Po11'], 'Neighbor ID': ['12.1.1.2', '13.1.1.1', '99.99.99.99']}
-
-
-''' parsing the output values into dictionary'''
-
-klist=[]
-for i in keys:
-    klist.append(" ".join(i))
-#print klist
-
-dict1={}
-for j in range(len(klist)):
-    dict1[klist[j]]=values[j]
-#print dict1
-
-for x in dict1:
-    for k in dict0:
-        if dict1[x]==dict0[k]:
-            print "Pass",x,dict1[x]
-        
+    
+    
+    
+    
+    
     
 
 
-
-
-
-  
 
