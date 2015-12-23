@@ -24,17 +24,6 @@ def parsing_ospf_ne(output):
     #print "Interface_list:",interface,"\n"
     return(neighbor_id,pri,state,up_time,ip_address,interface)
 
-#print parsing_ospf_ne(output=
-    '''Neighbor ID     Pri State            Up Time  Address         Interface
-        12.1.1.1          1 FULL/DR          1d14h    101.11.12.2     Eth3/4/3
-        13.1.1.1          1 FULL/DR          1d14h    101.11.13.2     Eth3/4/4
-        99.99.99.99       1 FULL/DR          1d14h    50.1.1.102      Po11'''
-#print parsing_ospf_ne(output=
-    '''Neighbor ID     Pri State            Up Time  Address         Interface
-        12.1.1.2          1 FULL/DR          1d14h    101.11.12.2     Eth3/4/3
-        13.1.1.3          1 FULL/DR          1d14h    101.11.13.2     Eth3/4/4
-        99.99.99.99       1 FULL/DR          1d14h    50.1.1.102      Po11'''
-    
 def verification_ospf_ne():
     Expected_output=''' 
         Neighbor ID     Pri State            Up Time  Address         Interface
