@@ -34,7 +34,7 @@ while i<list1 or j<list2:
 # else:
 #     current.append(list2)
 
-print type(current)
+print current
 
 
    
