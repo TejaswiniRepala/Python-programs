@@ -7,4 +7,4 @@ def reverse(text):
         word += text[-i-1]
         #print word
     return word 
-print reverse("sushma")
+print reverse("Nani")
